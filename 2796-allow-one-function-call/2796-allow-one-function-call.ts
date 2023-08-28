@@ -1,10 +1,10 @@
-type Fn = (...args: any[]) => any
+type Fn<T,U> = (...args: T[]) => U
 
-function once(fn: Fn): Fn {
+function once<T,U>(fn: Fn<T,U>): Fn<T,U | undefined> {
   let hasBeenCalled: boolean = false;
-  let result; 
+  let result: U; 
     
-  return function (...args) {
+  return function (...args: T[]): U | undefined {
     if(!hasBeenCalled) {
       hasBeenCalled = true;
       result = fn(...args)
